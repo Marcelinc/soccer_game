@@ -1,0 +1,92 @@
+.userImg{
+    background-color: blue;
+    width: 30%;
+    height: 50%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.imageField {
+    border: solid 3px cadetblue;
+    height: 70%;
+    width: 85%;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.userStats {
+    height: 38%;
+    background-color: aliceblue;
+    display: grid;
+}
+.statsField {
+    background-color: brown;
+    padding: 5px;
+    margin: 15px;
+    border-radius: 5px;
+    color: antiquewhite;
+}
+.statsProgress {
+    height: 100%;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    background-color: chocolate;
+    width: 40%;
+}
+.userEquipment {
+    height: 12%;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.eqField {
+    background-color: #80808091;
+    width: 20%;
+    margin: 15px;
+    border: solid 2px #2b2424;
+    height: 60%;
+    border-radius: 5px;
+}
+.userLevel {
+    background-color: #553838;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 25px;
+    border: solid 2px #284f02;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.levelInfo {
+    background-color: #4c9900;
+    width: 20%;
+    height: 100%;
+    border-radius: 5px;
+}
+.levelNumb {
+    position: absolute;
+    left: 48%;
+}
+.userInfo {
+    height: 200px;
+    background-color: #a7b371;
+    clear: both;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.personalInfo, .playerInfo {
+    position: relative;
+    top: 25px;
+    left: 75px;
+}
+.infoField {
+    padding: 7px;
+}

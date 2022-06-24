@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+*{
+  padding: 0;
+  margin:0;
+  box-sizing: border-box;
+}
+body{
+  background-color: aquamarine;
+  font-family: 'Bangers', cursive;
+}
+.container{
+  height: 100vh;
+  min-width: 700px;
+  min-height: 800px;
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
+}
+main{
+  height: 92%;
+}
+header{
+  min-height: 50px;
+  height: 8%;
+  
+}
+.navigation{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(128, 255, 0, 0.568);
+  height: 100%;
+  padding: 15px;
+}
+
+.links{
+  /*margin-inline: 20px;*/
+  width:85%;
+  display: flex;
+  justify-content: space-around;
+}
+header a{
+  text-decoration: none;
+  color: #511313;
+}
+header a:hover{
+  color:chocolate;
+}
+
+
+
+/*register*/
+.registerContent{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 15vh;
+}
+.formInputs{
+  display: grid;
+  text-align: center;
+}
+.formInputs label{
+  display: grid;
+  margin: 5px 0px;
+}
+.formInputs label input{
+  padding: 5px;
+  border: none;
+  border-radius: 3px;
+  width: 100%;
+}
+.formSubmit input{
+  border: none;
+  padding: 3%;
+  border-radius: 5px;
+  background-color: chartreuse;
+  width: 100%;
+  margin: 15px 0px;
+  font-family: 'Bangers',cursive;
+  max-height: 50px;
+  font-size: large;
+}
+.formSubmit input:hover{
+  cursor: pointer;
+  background-color: rgb(117, 230, 4);
+  color:rgb(148, 84, 11);
+}
+.authForm{
+  border: 2px solid black;
+  padding: 5% 45px;
+  background-color: #5f9ea0c2;
+  width: 60%;
+  max-width: 500px;
+  margin-top: 25px;
+}
+.authHeader{
+  margin-bottom:5px;
+}
+.authInfo{
+  text-align: center;
+  color: brown;
+}
+
+
+/*dashboard*/
+.positionSelector{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 10%;
+}
+.positions{
+  display: grid;
+  grid-template-columns: repeat(4,auto);
+  margin-top: 25px;
+}
+.pos-select{
+  margin-inline: 15px;
+  transition: transform 0.5s ease-in;
+}
+.pos-select:hover{
+  transform: scale(1.2);
+  cursor: pointer;
+}
+#Goalkeeper{
+  background-color: yellow;
+}
+#Defender{
+  background-color: blue;
+}
+#Midfielder{
+  background-color: green;
+}
+#Striker{
+  background-color: red;
+}
