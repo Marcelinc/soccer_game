@@ -6,8 +6,10 @@
   box-sizing: border-box;
 }
 body{
-  background-color: aquamarine;
+  background-image: url('../img/bgimg.jpg');
   font-family: 'Bangers', cursive;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .container{
   height: 100vh;
@@ -36,7 +38,7 @@ header{
 
 .links{
   /*margin-inline: 20px;*/
-  width:85%;
+  width:100%;
   display: flex;
   justify-content: space-around;
 }
@@ -56,7 +58,6 @@ header a:hover{
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 15vh;
 }
 .formInputs{
   display: grid;

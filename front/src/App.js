@@ -10,6 +10,7 @@ import League from './pages/League';
 import Shop from './pages/Shop';
 import Work from './pages/Work';
 import Training from './pages/Training';
+import Home from './pages/Home';
 
 export const AuthUserContext = createContext()
 
@@ -24,7 +25,7 @@ function App() {
         <AuthUserContext.Provider value={{token,setToken,logged,setLogged}}>
         <Header />
         <Routes>
-          <Route path='/' element={<Dashboard/>} />
+          <Route path='/' element={<Home/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/register' element={<Register/>} />
           <Route path='/club' element={<Club />} />
@@ -32,6 +33,7 @@ function App() {
           <Route path='/shop' element={<Shop/>}/>
           <Route path='/work' element={<Work/>}/>
           <Route path='/training' element={<Training/>}/>
+          <Route path='/home' element={<Dashboard/>}/>
         </Routes>
         </AuthUserContext.Provider>
       </div>

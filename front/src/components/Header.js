@@ -16,12 +16,13 @@ function Header() {
   return (
     <header>
         <nav className="navigation">
-            <Link to='/'>Dashboard</Link>
             <div className="links">
               {!authData.logged && !authData.token ? <>
+                <Link to='/'>Home</Link>
                 <Link to='/login'>Login</Link>
                 <Link to='/register'>Register</Link> 
                 </>  : <>
+                  <Link to='/home'>Dashboard</Link>
                   <Link to='/club'>Club</Link>
                   <Link to='/training'>Training</Link>
                   <Link to='work'>Work</Link>

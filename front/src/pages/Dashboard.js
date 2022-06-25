@@ -4,6 +4,7 @@ import { AuthUserContext } from "../App"
 import PositionSelector from '../components/PositionSelector'
 import User from "../components/User"
 import '../css/Dashboard.css'
+import Page404 from "./Page404"
 
 function Dashboard() {
 
@@ -15,14 +16,16 @@ function Dashboard() {
   
 
   const [loading,setLoading] = useState(true)
+  const [loadingError,setLoadingError] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
     setLoading(true)
-    fetch('http://localhost:5000/api/users/me',{
+    fetch(process.env.REACT_APP_SERVER+'/users/me',{
       method:'GET',
       headers: {
-        'Authorization': 'Bearer ' + localStorage.getItem('userToken')
+        'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
+        
       }
     })
     .then(res => res.json())
@@ -40,7 +43,7 @@ function Dashboard() {
       }
       setLoading(false)
     })
-    .catch(err => {console.log(err); setLoading(false)})
+    .catch(err => {console.log(err); setLoadingError(true); setLoading(false);})
 
     return(() => {
       setLoading(false)
@@ -49,7 +52,7 @@ function Dashboard() {
   },[])
 
   return (
-      loading ? <div>Loading...</div> : 
+      loading ? <div>Loading...</div> : loadingError ? <Page404/> : 
       user.pos === "unselected" ? <PositionSelector/> : <main className="dashboard">
         <UserContext.Provider value={user}>
           <User/>
