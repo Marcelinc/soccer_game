@@ -32,7 +32,7 @@ function Register() {
     if(validation())
     {
       setLoading(true)
-      fetch('http://localhost:5000/api/users/register',{
+      fetch(process.env.REACT_APP_SERVER+'users/register',{
         method:"POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({email,name:username,password})

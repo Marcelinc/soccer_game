@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 function Login() {
 
   const [email,setEmail] = useState('')
@@ -19,12 +20,12 @@ function Login() {
   },[])
 
   const onFormSubmitHandler = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
 
     if(validation()){
       setMessage('Logging...')
-      setLoading(true)
-      fetch('http://localhost:5000/api/users/login',{
+      setLoading(true)  
+      fetch(process.env.REACT_APP_SERVER+'/users/login',{
         method:'POST',
         headers: {'Content-Type': 'application/json'},
         body:JSON.stringify({email,password})
@@ -36,6 +37,8 @@ function Login() {
           localStorage.setItem('userToken',res.data.token)
           navigate('/')
         }
+        if(res.message === 'Invalid credentials')
+          setMessage('User not found')
       })
       .catch(err => {console.log(err); setMessage('Login failed. Try later')})
     } else setMessage('Please enter data')
