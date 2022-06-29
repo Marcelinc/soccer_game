@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthUserContext } from "../App";
 
 
 function Login() {
+
+  const authData = useContext(AuthUserContext)
 
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
@@ -13,6 +16,9 @@ function Login() {
   const navigate = useNavigate()
 
   useEffect(()=>{
+
+    authData.logged && navigate('/home') 
+
     return(() => {
       setMessage('')
       setLoading(false)
@@ -21,7 +27,6 @@ function Login() {
 
   const onFormSubmitHandler = (e) => {
     e.preventDefault(); 
-
     if(validation()){
       setMessage('Logging...')
       setLoading(true)  
@@ -35,7 +40,9 @@ function Login() {
         if(res.message === 'Success'){
           setMessage(res.message)
           localStorage.setItem('userToken',res.data.token)
-          navigate('/')
+          authData.setToken(res.data.token)
+          authData.setLogged(true)
+          navigate('/home')
         }
         if(res.message === 'Invalid credentials')
           setMessage('User not found')

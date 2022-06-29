@@ -33,7 +33,7 @@ const registerUser = asyncHandler(async (req,res) => {
         
         //Create position and user
         const position = await Position.create({user:_id})
-        const newUser = await User.create({_id,name,email,password,hashedPassword,position:position._id})
+        const newUser = await User.create({_id,name,email,password:hashedPassword,position:position._id})
         
 
         if(newUser && position){

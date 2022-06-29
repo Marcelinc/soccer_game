@@ -17,19 +17,17 @@ function Header() {
     <header>
         <nav className="navigation">
             <div className="links">
-              {!authData.logged && !authData.token ? <>
-                <Link to='/'>Home</Link>
+              <Link to='/'>Home</Link>
+              {!authData.logged ? <>
                 <Link to='/login'>Login</Link>
                 <Link to='/register'>Register</Link> 
-                </>  : <>
-                  <Link to='/home'>Dashboard</Link>
-                  <Link to='/club'>Club</Link>
-                  <Link to='/training'>Training</Link>
-                  <Link to='work'>Work</Link>
-                  <Link to='/shop'>Shop</Link>
-                  <Link to='/league'>League</Link>
-                  <Link to='/login' onClick={logout}>Logout</Link>
-                </>}
+              </> : <>
+                <div id="moneyinfo">
+                  <p className="moneyslot"><span className="moneystars">Money: </span><span id="moneystatus">10000$</span></p>
+                  <p className="moneyslot"><span className="moneystars">Stars: </span><span id="starsstatus">15</span></p>
+                </div>
+                <Link to='/login' onClick={logout}>Logout</Link>
+              </>}
             </div>
         </nav>
     </header>
