@@ -1,6 +1,6 @@
 import React from 'react'
 
-function PositionSelector() {
+function PositionSelector(props) {
 
   const updatePosition = (e) => {
     e.preventDefault()
@@ -13,7 +13,10 @@ function PositionSelector() {
       body: JSON.stringify({position:e.target.id})
     })
     .then(response => response.json())
-    .then(res => console.log(res))
+    .then(res => {
+      console.log(res);
+      //props.setPos()
+    })
     .catch(err => console.log(err))
   }
 

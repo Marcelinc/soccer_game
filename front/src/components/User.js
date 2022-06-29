@@ -1,9 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import UserContext from '../pages/Dashboard'
 
-function User() {
+function User(props) {
 
-  const user = useContext(UserContext)
+  useEffect(()=>{
+    console.log(props.user.user.name)
+  })
 
   return (
     <>
@@ -11,7 +13,7 @@ function User() {
         <div className='imageField'>
           <img src='#' alt='userImage'/>
         </div>
-        <p className='nickname'>{user.name}</p>
+        <p className='nickname'>{props.user.user.name}</p>
       </section>
       <section className='userStats'>
         <div className='statsField'><p className='statsProgress'>Dribbling</p></div>
@@ -32,13 +34,13 @@ function User() {
       </section>
       <section className='userInfo'>
         <div className='personalInfo'>
-          <p className='infoField'>Nickname: Marcelinc</p>
-          <p className='infoField'>Country: Poland</p>
-          <p className='infoField'>Age: 01</p>
-          <p className='infoField'>Description: xddd</p>
+          <p className='infoField'>Nickname: {props.user.user.name}</p>
+          <p className='infoField' id='country'>Country: {props.user.user.country}</p>
+          <p className='infoField' id='age'>Age: {props.user.user.age}</p>
+          <p className='infoField' id='description'>Description: {props.user.user.desc}</p>
         </div>
         <div className='playerInfo'>
-          <p className='infoField'>Position: Defender</p>
+          <p className='infoField'>Position: {props.user.pos}</p>
           <p className='infoField'>Club: none</p>
           <p className='infoField'>League: 1 League</p>
         </div>

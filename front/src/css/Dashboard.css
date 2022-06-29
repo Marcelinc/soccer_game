@@ -1,7 +1,7 @@
 .userImg{
     background-color: blue;
     width: 30%;
-    height: 50%;
+    height: 50.5vh;
     float: left;
     display: flex;
     justify-content: center;
@@ -37,7 +37,7 @@
     width: 40%;
 }
 .userEquipment {
-    height: 12%;
+    height: 105px;
     background-color: antiquewhite;
     display: flex;
     justify-content: center;
@@ -50,6 +50,10 @@
     border: solid 2px #2b2424;
     height: 60%;
     border-radius: 5px;
+}
+.eqField:hover{
+    cursor: pointer;
+    opacity: 0.8;
 }
 .userLevel {
     background-color: #553838;
@@ -77,8 +81,8 @@
     height: 200px;
     background-color: #a7b371;
     clear: both;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
     display: grid;
     grid-template-columns: 50% 50%;
 }
@@ -89,4 +93,10 @@
 }
 .infoField {
     padding: 7px;
+}
+#moneyinfo {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }

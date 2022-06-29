@@ -17,12 +17,14 @@ function Register() {
   const navigate = useNavigate()
 
   useEffect(() => {
+
+    authData.logged && navigate('/home')
+
     setUsername('')
     setEmail('')
     setPassword('')
     setConfirmPassword('')
     setMessage('')
-    console.log(authData.logged)
   },[])
 
   const onFormSubmitHandler = (e) => {
@@ -32,7 +34,7 @@ function Register() {
     if(validation())
     {
       setLoading(true)
-      fetch(process.env.REACT_APP_SERVER+'users/register',{
+      fetch(process.env.REACT_APP_SERVER+'/users/register',{
         method:"POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({email,name:username,password})
@@ -47,7 +49,7 @@ function Register() {
           authData.setToken(res.data.token)
           authData.setLogged(true)
           localStorage.setItem('userToken',res.data.token)
-          navigate('/')
+          navigate('/home')
         }
       })
       .catch(err => console.log('err',err))
