@@ -15,7 +15,7 @@ function PositionSelector(props) {
     .then(response => response.json())
     .then(res => {
       console.log(res);
-      //props.setPos()
+      props.setPosition(e.target.id)
     })
     .catch(err => console.log(err))
   }

@@ -39,6 +39,10 @@ const userSchema = mongoose.Schema({
     position: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Position'
+    },
+    experience: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Experience'
     }
 },
 {

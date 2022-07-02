@@ -1,6 +1,8 @@
 const {Types} = require('mongoose')
 const User = require('../models/userModel')
 const Position = require('../models/positionModel')
+const Experience = require('../models/experienceModel')
+const Level = require('../models/levelModel')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
@@ -31,9 +33,10 @@ const registerUser = asyncHandler(async (req,res) => {
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password,salt)
         
-        //Create position and user
+        //Create position and user with experience
         const position = await Position.create({user:_id})
-        const newUser = await User.create({_id,name,email,password:hashedPassword,position:position._id})
+        const exp = await Experience.create({userId:_id})
+        const newUser = await User.create({_id,name,email,password:hashedPassword,position:position._id, experience:exp._id})
         
 
         if(newUser && position){
@@ -86,7 +89,9 @@ const loginUser = asyncHandler(async (req,res) => {
 // @access  Private
 const getMe =asyncHandler(async (req,res) => {
     try {
-        const user = await User.findById(req.user.id).populate('position')
+        const user = await User.findById(req.user.id).populate('experience').populate({path: 'experience', populate: {
+            path: 'level', select: 'name maxExp -_id' 
+        }})
         //const position = await Position.findOne({user: req.user.id})
         if(!user){
             res.status(400)
@@ -100,6 +105,7 @@ const getMe =asyncHandler(async (req,res) => {
                     age:user.age,
                     country:user.country,
                     desc:user.description,
+                    exp:user.experience
                 },
                 pos:user.position.name}
             })
@@ -108,7 +114,7 @@ const getMe =asyncHandler(async (req,res) => {
 
     } catch (error) {
         res.status(500)
-        throw new Error('Problem with DB connection')
+        throw new Error('Problem with DB connection '+error)
     }
 })
 
