@@ -5,8 +5,13 @@ const connectDB = require('./config/db')
 const cors = require('cors')
 const port = process.env.PORT || 5000;
 
-
+/*DB */
 connectDB()
+//Entry data - only once
+//const seed = require('./seeders/levelSeeder')
+//seed
+
+/*Server*/
 const app = express()
 
 app.use(cors())

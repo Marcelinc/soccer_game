@@ -22,6 +22,7 @@ function App() {
   const [logged,setLogged] = useState(false)
 
   const [user,setUser] = useState({})
+  const [position,setPosition] = useState()
   const [loading,setLoading] = useState(true)
 
   useEffect(() => {
@@ -42,6 +43,7 @@ function App() {
       //set user data
       if(res.message === 'Success'){
         setUser(res.data)
+        setPosition(res.data.pos)
         console.log(res.data)
         setLogged(true)
       }
@@ -66,10 +68,10 @@ function App() {
           <Route path='/shop' element={<Shop/>}/>
           <Route path='/work' element={<Work/>}/>
           <Route path='/training' element={<Training/>}/>
-          <Route path='/home' element={<Dashboard/>}/>
+          <Route path='/home' element={<Dashboard setPosition={setPosition} position={position}/>}/>
           <Route path='/404' element={<Page404/>}/>
         </Routes>
-        <Footer/>
+        <Footer pos={position}/>
         </AuthUserContext.Provider>
       </div>
     </Router>

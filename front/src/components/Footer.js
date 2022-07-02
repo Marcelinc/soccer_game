@@ -2,12 +2,12 @@ import React, { useContext } from 'react'
 import { Link } from "react-router-dom"
 import { AuthUserContext } from '../App'
 
-function Footer() {
+function Footer(props) {
   
   const authData = useContext(AuthUserContext)
 
   return (
-    authData.logged ?
+    authData.logged && props.pos !== 'unselected' ?
     <footer>
         <nav className='navigation'>
           <div className="links">

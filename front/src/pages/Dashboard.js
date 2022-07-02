@@ -6,7 +6,7 @@ import User from "../components/User"
 import '../css/Dashboard.css'
 import Page404 from "./Page404"
 
-function Dashboard() {
+function Dashboard(props) {
 
   const authData = useContext(AuthUserContext)
   const [user,setUser] = useState()
@@ -23,7 +23,7 @@ function Dashboard() {
 
   return (
       loading ? <div>Loading...</div> : loadingError ? <Page404/> : 
-      user.pos === "unselected" ? <PositionSelector setPos={setUser}/> : <main className="dashboard">
+      props.position === "unselected" ? <PositionSelector setPosition={props.setPosition}/> : <main className="dashboard">
           <User user={user}/>
       </main>
   )
