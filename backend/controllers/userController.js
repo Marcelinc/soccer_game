@@ -3,6 +3,7 @@ const User = require('../models/userModel')
 const Position = require('../models/positionModel')
 const Experience = require('../models/experienceModel')
 const Level = require('../models/levelModel')
+const Country = require('../models/countryModel')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
@@ -89,9 +90,9 @@ const loginUser = asyncHandler(async (req,res) => {
 // @access  Private
 const getMe =asyncHandler(async (req,res) => {
     try {
-        const user = await User.findById(req.user.id).populate('experience').populate({path: 'experience', populate: {
+        const user = await User.findById(req.user.id).populate('position').populate({path: 'experience', select: 'exp level -_id', populate: {
             path: 'level', select: 'name maxExp -_id' 
-        }})
+        }}).populate({path: 'country', select: 'name -_id'})
         //const position = await Position.findOne({user: req.user.id})
         if(!user){
             res.status(400)
@@ -151,6 +152,14 @@ const updatePosition = asyncHandler(async (req,res) => {
     }
 })
 
+
+// @desc    Update user country
+// @route   PUT /api/users/country
+// @access  Private
+const updateCountry = asyncHandler(async (req,res) => {
+
+})
+
 //Generate JWT
 const generateToken = (id) => jwt.sign({id},process.env.JWT_SECRET,{expiresIn: '30d'})
 
@@ -158,5 +167,6 @@ module.exports = {
     registerUser,
     loginUser,
     getMe,
-    updatePosition
+    updatePosition,
+    updateCountry
 }

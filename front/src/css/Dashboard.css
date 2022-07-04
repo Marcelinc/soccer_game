@@ -67,6 +67,9 @@
     align-items: center;
     position: relative;
 }
+.userLevel:hover{
+    cursor: default;
+}
 .levelInfo {
     background-color: #4c9900;
     width: 20%;
@@ -94,9 +97,20 @@
 .infoField {
     padding: 7px;
 }
+#country:hover, #age:hover, #description:hover {
+    cursor: pointer;
+}
 #moneyinfo {
     width: 50%;
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+
+.userForm{
+    background-color: #284f02;
+    color: orange;
+    position:absolute;
+
 }

@@ -7,7 +7,7 @@ Level = {
     maxExp: Number
 }
 */ 
-const seed = Array({name: '1',maxExp: 0},{name: '2', maxExp: 10});
+const seed = Array({name: '1',maxExp: 10},{name: '2', maxExp: 21});
 for(i=2;i<51;i++){
     seed[i] = {name: ''+(i+1),maxExp: Math.round((1.1)*seed[i-1].maxExp+seed[i-1].maxExp)}
 }

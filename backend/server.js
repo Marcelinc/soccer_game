@@ -7,9 +7,11 @@ const port = process.env.PORT || 5000;
 
 /*DB */
 connectDB()
-//Entry data - only once
-//const seed = require('./seeders/levelSeeder')
-//seed
+//Entry data - only once, 
+//const seedLevels = require('./seeders/levelSeeder') //remember to set ID in experience model!!
+//seedLevels
+//const seedCountries = require('./seeders/countrySeeder') //remember to set ID in user model
+//seedCountries
 
 /*Server*/
 const app = express()
@@ -21,6 +23,7 @@ app.use(express.urlencoded({extented:false}))
 
 app.use('/api/goals', require('./routes/goalRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
+app.use('/api/country',require('./routes/countryRoutes'))
 
 app.use(errorHandler)
 

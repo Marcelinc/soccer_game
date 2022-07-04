@@ -1,7 +1,26 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import UserContext from '../pages/Dashboard'
+import CountryForm from './CountryForm'
 
 function User(props) {
+
+  const [exp,setExp] = useState(props.user.user.exp)
+  const [showCountryForm, setCountryForm] = useState(false)
+
+  const showExp = (e) => {
+    if (e.type === 'mouseover')
+      document.querySelector('.levelNumb').innerHTML = 'Exp. '+ exp.exp+'/'+exp.level.maxExp
+    if(e.type === 'mouseleave')
+      document.querySelector('.levelNumb').innerHTML = 'Level '+exp.level.name  
+  }
+
+  const setAge = e => {
+    console.log('setAge')
+  }
+
+  const setDescription = e => {
+    console.log('Set description')
+  }
 
   useEffect(()=>{
     console.log(props.user.user.name)
@@ -28,16 +47,16 @@ function User(props) {
         <div className='eqField'>eq3</div>
         <div className='eqField'>eq4</div>
       </section>
-      <section className='userLevel'>
-        <div className='levelInfo'></div>
-        <p className='levelNumb'>Level 1</p>
+      <section className='userLevel' onMouseOver={showExp} onMouseLeave={showExp}>
+        <div className='levelInfo' style={{width: exp.exp*100/exp.level.maxExp+'%'}}></div>
+        <p className='levelNumb'>Level {exp.level.name}</p>
       </section>
       <section className='userInfo'>
         <div className='personalInfo'>
           <p className='infoField'>Nickname: {props.user.user.name}</p>
-          <p className='infoField' id='country'>Country: {props.user.user.country}</p>
-          <p className='infoField' id='age'>Age: {props.user.user.age}</p>
-          <p className='infoField' id='description'>Description: {props.user.user.desc}</p>
+          <p className='infoField' >Country: <span id='country' onClick={()=> setCountryForm(true)}>{props.user.user.country.name}</span></p>
+          <p className='infoField' >Age: <span id='age' onClick={setAge}>{props.user.user.age}</span></p>
+          <p className='infoField' >Description: <span id='description' onClick={setDescription}>{props.user.user.desc}</span></p>
         </div>
         <div className='playerInfo'>
           <p className='infoField'>Position: {props.user.pos}</p>
@@ -45,6 +64,7 @@ function User(props) {
           <p className='infoField'>League: 1 League</p>
         </div>
       </section>
+      {showCountryForm && <CountryForm setForm={setCountryForm}/>}
     </>
   )
 }
