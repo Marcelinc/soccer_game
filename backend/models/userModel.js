@@ -1,13 +1,6 @@
 const mongoose = require('mongoose')
 
-const Countries = {
-    'unselected' : 'Choose country',
-    'pol' : 'Poland',
-    'eng' : 'England',
-    'fra' : 'France',
-    'ger' : 'Germany',
-    'spa' : 'Spain'
-}
+
 
 const userSchema = mongoose.Schema({
     name: {
@@ -28,9 +21,9 @@ const userSchema = mongoose.Schema({
         default: 0
     },
     country: {
-        type: String,
-        enum: Countries,
-        default: Countries.unselected
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Country',
+        default: '62c2c645c99bd1a51a3ac2bd'
     },
     description: {
         type: String,

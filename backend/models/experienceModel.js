@@ -12,7 +12,7 @@ const experienceSchema = mongoose.Schema({
     level: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Level',
-        default: "62beb5e4a41c9696a6f89044"
+        default: "62c2aa21275da2971a380196"
     }
 })
 
