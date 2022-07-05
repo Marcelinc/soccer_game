@@ -157,7 +157,26 @@ const updatePosition = asyncHandler(async (req,res) => {
 // @route   PUT /api/users/country
 // @access  Private
 const updateCountry = asyncHandler(async (req,res) => {
+    const {country} = req.body
 
+    if(!country)
+        res.status(400).json('Bad request')
+
+    const countryID = await Country.findOne({name:country})
+
+    if(!countryID)
+        res.status(404).json('Country not defined')
+    
+    const user = await User.findById(req.user.id)
+    if(!user)
+        res.status(404).json('User not found')
+    
+    user.country = countryID._id
+    const updateUser = await user.save()
+    if(!updateUser)
+        res.status(500).json('Problem with updating user')
+
+    res.status(200).json('User updated')
 })
 
 //Generate JWT
