@@ -97,6 +97,9 @@
 .infoField {
     padding: 7px;
 }
+#description{
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
 #country:hover, #age:hover, #description:hover {
     cursor: pointer;
 }
@@ -165,4 +168,9 @@
     height: 18px;
     background: blue;
     transform: rotate(-45deg) translateX(-1px);
+}
+
+#descInput {
+    resize: none;
+    margin-bottom: 4px;
 }

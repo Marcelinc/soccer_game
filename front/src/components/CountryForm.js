@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import { AuthUserContext } from "../App"
 
 function CountryForm(props) {
+
+  const authData = useContext(AuthUserContext)
 
     const [loading,setLoading] = useState(true)
     const [countries,setCountries] = useState([])
@@ -28,7 +31,9 @@ function CountryForm(props) {
         'Authorization': 'Bearer ' + token},
       body: JSON.stringify({country:choosenCountry})
     })
-    .then(res => console.log(res))
+    .then(res => res.json())
+    .then(res => {if(res === 'User updated') {console.log(authData.user); authData.setUser(...[authData.user],authData.user.user.country.name = choosenCountry)}
+      props.setForm(false)})
     .catch(err => console.log(err))
     setProccessing(false)
   }

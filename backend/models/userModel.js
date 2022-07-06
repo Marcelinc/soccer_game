@@ -27,7 +27,7 @@ const userSchema = mongoose.Schema({
     },
     description: {
         type: String,
-        default: ''
+        default: 'Set your description..'
     },
     position: {
         type: mongoose.Schema.Types.ObjectId,

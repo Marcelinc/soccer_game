@@ -1,25 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react'
 import UserContext from '../pages/Dashboard'
+import AgeForm from './AgeForm'
 import CountryForm from './CountryForm'
+import DescriptionForm from './DescriptionForm'
 
 function User(props) {
 
   const [exp,setExp] = useState(props.user.user.exp)
   const [showCountryForm, setCountryForm] = useState(false)
+  const [showAgeForm,setAgeForm] = useState(false)
+  const [showDescForm,setDescForm] = useState(false)
 
   const showExp = (e) => {
     if (e.type === 'mouseover')
       document.querySelector('.levelNumb').innerHTML = 'Exp. '+ exp.exp+'/'+exp.level.maxExp
     if(e.type === 'mouseleave')
       document.querySelector('.levelNumb').innerHTML = 'Level '+exp.level.name  
-  }
-
-  const setAge = e => {
-    console.log('setAge')
-  }
-
-  const setDescription = e => {
-    console.log('Set description')
   }
 
   useEffect(()=>{
@@ -55,8 +51,8 @@ function User(props) {
         <div className='personalInfo'>
           <p className='infoField'>Nickname: {props.user.user.name}</p>
           <p className='infoField' >Country: <span id='country' onClick={()=> setCountryForm(true)}>{props.user.user.country.name}</span></p>
-          <p className='infoField' >Age: <span id='age' onClick={setAge}>{props.user.user.age}</span></p>
-          <p className='infoField' >Description: <span id='description' onClick={setDescription}>{props.user.user.desc}</span></p>
+          <p className='infoField' >Age: <span id='age' onClick={() => setAgeForm(true)}>{props.user.user.age} Years</span></p>
+          <p className='infoField' >Description: <span id='description' onClick={() => setDescForm(true)}>{props.user.user.desc ? props.user.user.desc : 'Set your description..'}</span></p>
         </div>
         <div className='playerInfo'>
           <p className='infoField'>Position: {props.user.pos}</p>
@@ -65,6 +61,8 @@ function User(props) {
         </div>
       </section>
       {showCountryForm && <CountryForm setForm={setCountryForm}/>}
+      {showAgeForm && <AgeForm setForm={setAgeForm}/>}
+      {showDescForm && <DescriptionForm setForm={setDescForm}/>}
     </>
   )
 }

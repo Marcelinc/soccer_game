@@ -1,6 +1,9 @@
-import React from 'react'
+import {React, useContext} from 'react'
+import { AuthUserContext } from "../App"
 
 function PositionSelector(props) {
+
+  const authData = useContext(AuthUserContext)
 
   const updatePosition = (e) => {
     e.preventDefault()
@@ -16,6 +19,7 @@ function PositionSelector(props) {
     .then(res => {
       console.log(res);
       props.setPosition(e.target.id)
+      authData.setUser(...authData.user,authData.user.pos = e.target.id)
     })
     .catch(err => console.log(err))
   }
