@@ -179,6 +179,53 @@ const updateCountry = asyncHandler(async (req,res) => {
     res.status(200).json('User updated')
 })
 
+
+// @desc    Update user's age
+// @route   PUT /api/users/age
+// @access  Private
+const updateAge = asyncHandler(async (req,res) => {
+    const {age} = req.body
+
+    if(!age)
+        res.status(400).json('Bad request')
+    
+    const user = await User.findById(req.user.id)
+    if(!user)
+        res.status(401).json('Not authorized')
+
+    user.age = age
+    const update = await user.save()
+
+    if(!update)
+        res.status(500).json('Problem with updating user')
+
+    res.status(200).json('User updated')
+})
+
+
+// @desc    Update user's description
+// @route   PUT /api/users/desc
+// @access  Private
+const updateDesc = asyncHandler(async (req,res) => {
+    const {description} = req.body
+
+    if(!description)
+        res.status(400).json('Bad request')
+
+    const user = await User.findById(req.user.id)
+    if(!user)
+        res.status(401).json('Not authorized')
+
+    user.description = description
+    const update = await user.save()
+
+    if(!update)
+        res.status(500).json('Problem with updating user')
+
+    res.status(200).json('User updated')
+})
+
+
 //Generate JWT
 const generateToken = (id) => jwt.sign({id},process.env.JWT_SECRET,{expiresIn: '30d'})
 
@@ -187,5 +234,7 @@ module.exports = {
     loginUser,
     getMe,
     updatePosition,
-    updateCountry
+    updateCountry,
+    updateAge,
+    updateDesc
 }

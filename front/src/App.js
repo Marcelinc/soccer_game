@@ -57,7 +57,7 @@ function App() {
     !loading &&
     <Router>
       <div className='container'>
-        <AuthUserContext.Provider value={{token,setToken,logged,setLogged,user}}>
+        <AuthUserContext.Provider value={{token,setToken,logged,setLogged,user,setUser}}>
         <Header />
         <Routes>
           <Route path='/' element={<Home/>} />
