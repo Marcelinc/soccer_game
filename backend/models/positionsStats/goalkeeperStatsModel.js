@@ -1,30 +1,66 @@
 const mongoose = require('mongoose')
 
 const goalkeeperStatsSchema = mongoose.Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'User'
+    userId: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+        require: [true, 'Ref to user'],
+        unique: true
     },
-    passing:{
-        type: Number,
-        default: 5
+    level: {
+        type: mongoose.Types.ObjectId,
+        ref: 'StatsLevel',
+        required: true
     },
-    defenceCloseRange:{
-        type: Number,
-        default: 10
+    stat1:{
+        name: {
+            type: String,
+            default: 'Passing'
+        },
+        value: {
+            type: Number,
+            default: 5
+        }
     },
-    defenceHeadShot:{
-        type: Number,
-        default: 10
+    stat2:{
+        name: {
+            type: String,
+            default: 'DefenceCloseRange'
+        },
+        value: {
+            type: Number,
+            default: 10
+        }
     },
-    defenceLongRange:{
-        type: Number,
-        default: 10
+    stat3:{
+        name: {
+            type: String,
+            default: 'DefenceHeadShot'
+        },
+        value: {
+            type: Number,
+            default: 10
+        }
     },
-    fitness:{
-        type: Number,
-        default: 5
+    stat4:{
+        name: {
+            type: String,
+            default: 'DefenceLongRange'
+        },
+        value: {
+            type: Number,
+            default: 10
+        }
+    },
+    stat5:{
+        name: {
+            type: String,
+            default: 'Fitness'
+        },
+        value: {
+            type: Number,
+            default: 5
+        }
     }
 })
 

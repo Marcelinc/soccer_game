@@ -23,8 +23,8 @@ function Header() {
                 <Link to='/register'>Register</Link> 
               </> : <>
                 <div id="moneyinfo">
-                  <p className="moneyslot"><span className="moneystars">Money: </span><span id="moneystatus">10000$</span></p>
-                  <p className="moneyslot"><span className="moneystars">Stars: </span><span id="starsstatus">15</span></p>
+                  <p className="moneyslot"><span className="moneystars">Money: </span><span id="moneystatus">{authData.user.user.currency.money}$</span></p>
+                  <p className="moneyslot"><span className="moneystars">Stars: </span><span id="starsstatus">{authData.user.user.currency.stars}</span></p>
                 </div>
                 <Link to='/login' onClick={logout}>Logout</Link>
               </>}

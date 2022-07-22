@@ -8,10 +8,18 @@ const port = process.env.PORT || 5000;
 /*DB */
 connectDB()
 //Entry data - only once, 
+
 //const seedLevels = require('./seeders/levelSeeder') //remember to set ID in experience model!!
 //seedLevels
+
 //const seedCountries = require('./seeders/countrySeeder') //remember to set ID in user model
 //seedCountries
+
+//const seedPosition = require('./seeders/positionSeeder')
+//seedPosition
+
+//const statLevelSeeder = require('./seeders/statsLevel')
+//statLevelSeeder
 
 /*Server*/
 const app = express()

@@ -18,8 +18,11 @@ function PositionSelector(props) {
     .then(response => response.json())
     .then(res => {
       console.log(res);
-      props.setPosition(e.target.id)
-      authData.setUser(...authData.user,authData.user.pos = e.target.id)
+      if(res.status === 'Successfully'){
+        props.setPosition(e.target.id)
+        authData.setUser(...[authData.user],authData.user.pos = e.target.id,authData.user.stats = res.data.stats, 
+          authData.user.statsModel = res.data.statsModel)
+      }
     })
     .catch(err => console.log(err))
   }

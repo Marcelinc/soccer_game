@@ -4,9 +4,15 @@ const Position = require('../models/positionModel')
 const Experience = require('../models/experienceModel')
 const Level = require('../models/levelModel')
 const Country = require('../models/countryModel')
+const GoalkeeperStats = require('../models/positionsStats/goalkeeperStatsModel')
+const MidfielderStats = require('../models/positionsStats/midfielderStatsModel')
+const DefenderStats = require('../models/positionsStats/defenderStatsModel')
+const StrikerStats = require('../models/positionsStats/strikerStatsModel')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
+const UnselectedStats = require('../models/positionsStats/unselectedStatsModel')
+const StatsLevel = require('../models/statsLevelModel')
 
 // @desc    Register an user 
 // @route   POST /api/users/register
@@ -35,9 +41,13 @@ const registerUser = asyncHandler(async (req,res) => {
         const hashedPassword = await bcrypt.hash(password,salt)
         
         //Create position and user with experience
-        const position = await Position.create({user:_id})
+        const position = await Position.findOne({name:'unselected'})
         const exp = await Experience.create({userId:_id})
-        const newUser = await User.create({_id,name,email,password:hashedPassword,position:position._id, experience:exp._id})
+        const statsLevel = await StatsLevel.findOne({name: '1'}) 
+        const stats = await UnselectedStats.create({userId:_id, level:statsLevel._id})
+        //console.log(stats)
+        const newUser = await User.create({_id,name,email,password:hashedPassword,position:position._id, experience:exp._id, 
+            stats:stats._id,statsModel:'UnselectedStats'})
         
 
         if(newUser && position){
@@ -92,7 +102,9 @@ const getMe =asyncHandler(async (req,res) => {
     try {
         const user = await User.findById(req.user.id).populate('position').populate({path: 'experience', select: 'exp level -_id', populate: {
             path: 'level', select: 'name maxExp -_id' 
-        }}).populate({path: 'country', select: 'name -_id'})
+        }}).populate({path: 'country', select: 'name -_id'}).populate({path: 'stats', select: '-userId', populate: {
+            path: 'level',
+        }})
         //const position = await Position.findOne({user: req.user.id})
         if(!user){
             res.status(400)
@@ -106,7 +118,13 @@ const getMe =asyncHandler(async (req,res) => {
                     age:user.age,
                     country:user.country,
                     desc:user.description,
-                    exp:user.experience
+                    exp:user.experience,
+                    stats:user.stats,
+                    statsModel:user.statsModel,
+                    currency: {
+                        money: user.currency.money,
+                        stars: user.currency.stars
+                    }
                 },
                 pos:user.position.name}
             })
@@ -124,21 +142,50 @@ const getMe =asyncHandler(async (req,res) => {
 // @access  Private
 const updatePosition = asyncHandler(async (req,res) => {
     const {position} = req.body
-    const userPos = await Position.findOne({user:req.user.id})
+    const user = await User.findOne({_id:req.user.id}).populate('position')
 
-    if(userPos){
-        if(userPos.name !== 'unselected')
+    if(user){
+        if(user.position.name !== 'unselected')
         {
             res.status(400)
             throw new Error("You can't select position second time")
         } else {
             if(position === 'Goalkeeper' || position === 'Defender' || position === 'Midfielder' || position === 'Striker'){
                 //update user position
-                userPos.name = position
-                const update = await userPos.save()
-                console.log('Update: ', update)
+                var stats,newPosition,statsLevel;
+                newPosition = await Position.findOne({name: position})
+                statsLevel = await StatsLevel.findOne({name: '1'})
+                if(!statsLevel)
+                    throw new Error('Server problem (statsLevel)')
+
+                switch(position){
+                    case 'Goalkeeper': 
+                        stats = await GoalkeeperStats.create({userId:user._id,level:statsLevel._id}).then(data => user.stats=data._id);
+                        break;
+    
+                    case 'Defender':
+                        stats = await DefenderStats.create({userId:user._id,level:statsLevel._id}).then(data => user.stats=data._id);
+                        break;
+
+                    case 'Midfielder':
+                        stats = await MidfielderStats.create({userId:user._id,level:statsLevel._id}).then(data => user.stats=data._id);
+                        break;
+
+                    case 'Striker':
+                        stats = await StrikerStats.create({userId:user._id,level:statsLevel._id}).then(data => user.stats=data._id);
+                        break;
+                    }
+                //user.stats = stats._id;
+                user.statsModel = position+'Stats'
+                user.position = new Types.ObjectId(newPosition._id);
+                
+                const update = await user.save()
+                if(update)
+                    oldPositionStats = await UnselectedStats.deleteOne({userId: req.user.id}) 
                 //let update = await Position.updateOne({user: req.user.id}, {name: position})
-                update.name === position ? res.status(200).json({message: `Updated position: ${position}`}) : 
+                update.position.equals(newPosition._id) ? res.status(200).json({message: `Updated position: ${position}`, status:'Successfully', data: {
+                    statsModel: user.statsModel, position: position, stat: stats.populate()
+                }}) : 
                     res.status(500).json({message: 'The problem has occured while changing position'})
                 
             } else {

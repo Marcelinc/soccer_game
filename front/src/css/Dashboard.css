@@ -27,6 +27,7 @@
     margin: 15px;
     border-radius: 5px;
     color: antiquewhite;
+    white-space: nowrap;
 }
 .statsProgress {
     height: 100%;
@@ -35,6 +36,10 @@
     align-items: center;
     background-color: chocolate;
     width: 40%;
+    color: rgba(0,255,255,0.8);
+}
+.statsProgress:hover{
+    cursor: default;
 }
 .userEquipment {
     height: 105px;
