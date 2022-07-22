@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 
 
-
 const userSchema = mongoose.Schema({
     name: {
         type: String,
@@ -29,6 +28,7 @@ const userSchema = mongoose.Schema({
         type: String,
         default: 'Set your description..'
     },
+    
     position: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Position'
@@ -36,6 +36,25 @@ const userSchema = mongoose.Schema({
     experience: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Experience'
+    },
+    stats: {
+        type: mongoose.Schema.Types.ObjectId,
+        refPath: 'statsModel'
+    },
+    statsModel: {
+        type: String,
+        required: true,
+        enum: ['DefenderStats','MidfielderStats','StrikerStats','GoalkeeperStats','UnselectedStats']
+    },
+    currency: {
+        money: {
+            type: Number,
+            default: 100
+        },
+        stars: {
+            type: Number,
+            default: 5
+        }
     }
 },
 {

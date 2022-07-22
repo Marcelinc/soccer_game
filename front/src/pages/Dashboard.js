@@ -24,7 +24,7 @@ function Dashboard(props) {
   return (
       loading ? <div>Loading...</div> : loadingError ? <Page404/> : 
       props.position === "unselected" ? <PositionSelector setPosition={props.setPosition}/> : <main className="dashboard">
-          <User user={authData.user}/>
+          <User user={authData.user} />
       </main>
   )
 }

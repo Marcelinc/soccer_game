@@ -1,30 +1,66 @@
 const mongoose = require('mongoose')
 
 const strikerStatsSchema = mongoose.Schema({
-    user:{
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref:'User'
+    userId: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+        require: [true, 'Ref to user'],
+        unique: true
     },
-    dribbling:{
-        type: Number,
-        default: 5
+    level: {
+        type: mongoose.Types.ObjectId,
+        ref: 'StatsLevel',
+        required: true
     },
-    goalShot: {
-        type: Number,
-        default: 10
+    stat1:{
+        name: {
+            type: String,
+            default: 'Dribbling'
+        },
+        value: {
+            type: Number,
+            default: 5
+        }
     },
-    passing:{
-        type: Number,
-        default: 5
+    stat2: {
+        name: {
+            type: String,
+            default: 'Shooting'
+        },
+        value: {
+            type: Number,
+            default: 10
+        }
     },
-    sprint:{
-        type: Number,
-        default: 10
+    stat3:{
+        name: {
+            type: String,
+            default: 'Passing'
+        },
+        value: {
+            type: Number,
+            default: 5
+        }
     },
-    fitness:{
-        type: Number,
-        default: 5
+    stat4:{
+        name: {
+            type: String,
+            default: 'Sprint'
+        },
+        value: {
+            type: Number,
+            default: 10
+        }
+    },
+    stat5:{
+        name: {
+            type: String,
+            default: 'Fitness'
+        },
+        value: {
+            type: Number,
+            default: 5
+        }
     }
 })
 
