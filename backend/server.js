@@ -21,6 +21,14 @@ connectDB()
 //const statLevelSeeder = require('./seeders/statsLevel')
 //statLevelSeeder
 
+//coaches Levels seed
+//const coachLevelSeeder = require('./seeders/coachLevelSeeder')
+//coachLevelSeeder
+
+//manager's levels seed
+//const managerLevelSeeder = require('./seeders/managerLevelSeeder')
+//managerLevelSeeder
+
 /*Server*/
 const app = express()
 
@@ -32,6 +40,7 @@ app.use(express.urlencoded({extented:false}))
 app.use('/api/goals', require('./routes/goalRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/country',require('./routes/countryRoutes'))
+app.use('/api/club',require('./routes/clubRoutes'))
 
 app.use(errorHandler)
 
