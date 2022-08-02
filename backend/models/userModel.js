@@ -55,6 +55,16 @@ const userSchema = mongoose.Schema({
             type: Number,
             default: 5
         }
+    },
+    club: {
+        has: {
+            type: Boolean,
+            default: false
+        },
+        id: {
+            type: mongoose.Types.ObjectId,
+            ref: 'Club'
+        }
     }
 },
 {
